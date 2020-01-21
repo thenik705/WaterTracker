@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="19A582a" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Categories" representedClassName="CoreDataKit.Categories" syncable="YES">
+        <attribute name="colorId" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageId" optional="YES" attributeType="String"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Event" representedClassName="CoreDataKit.Event" syncable="YES">
+        <attribute name="dateTaken" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="volume" optional="YES" attributeType="String"/>
+        <attribute name="waterId" optional="YES" attributeType="Integer 16" defaultValueString="-1" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Water" representedClassName="CoreDataKit.Water" syncable="YES">
+        <attribute name="categoriesId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="colorId" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="imageId" optional="YES" attributeType="String"/>
+        <attribute name="position" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Categories" positionX="-434.796875" positionY="8.2890625" width="128" height="118"/>
+        <element name="Event" positionX="-248.64453125" positionY="90.875" width="128" height="103"/>
+        <element name="Water" positionX="-247.375" positionY="-124.84765625" width="128" height="133"/>
+    </elements>
+</model>

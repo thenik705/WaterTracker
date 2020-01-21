@@ -1,0 +1,41 @@
+default_platform(:ios)
+
+platform :ios do
+  
+ #CONSTANTS
+  OUTPUT_SWIFT_LINT = "Pods/SwiftLint/swiftlint"
+
+	desc "Generate new localized screenshots"
+  lane :screenshots do
+    capture_screenshots(workspace: ENV['APPLICATION_WORKSPACE_NAME'], scheme: ENV['APPLICATION_SCHEME_NAME'])
+    upload_to_app_store(skip_binary_upload: true, skip_metadata: true)
+  end
+
+  desc "Upload to App Store and submit for review"
+  lane :upload do
+    deliver(
+    submit_for_review: true
+    )
+  end
+
+desc "Run lint"
+  lane :lint do
+    swiftlint(
+    mode: :lint,                           
+    executable: OUTPUT_SWIFT_LINT,                
+    output_file: "swiftlint.result.xml",
+    reporter: "checkstyle",                       
+    config_file: "./.swiftlint.yml"
+   )
+  end
+
+desc "Run lint autocorrect"
+  lane :lint_autocorrect do
+    swiftlint(
+    mode: :autocorrect,
+    executable: OUTPUT_SWIFT_LINT,
+    config_file: ".swiftlint-autocorrect.yml",
+	ignore_exit_status: true
+    )
+  end
+end

@@ -1,0 +1,15 @@
+devices(["iPhone 7", "iPhone XS Max", "iPad 12.9"])
+
+languages(['hu', 'pl', 'sk', 'cs', 'hi', 'ro', 'da', 'ca', 'de-DE', 'el', 'en-AU', 'en-CA', 'en-GB', 'en-US', 'es-ES', 'es-MX', 'fi', 'fr-CA', 'fr-FR', 'id', 'it', 'ja', 'uk', 'ko', 'ms', 'nl-NL', 'no', 'pt-BR', 'pt-PT', 'ru', 'sv', 'th', 'tr', 'vi', 'zh-Hans', 'zh-Hant'])
+
+output_directory "./fastlane/screenshots"
+
+clear_previous_screenshots false
+localize_simulator true
+
+skip_helper_version_check false
+reinstall_app false
+erase_simulator false
+concurrent_simulators true
+
+ios_version '13.3'
