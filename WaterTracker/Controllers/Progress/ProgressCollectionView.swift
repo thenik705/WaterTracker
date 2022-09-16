@@ -12,9 +12,10 @@ import CoreDataKit
 
 class ProgressCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var progressView: MultiProgressView?
+    var categories = [Categories]()
     var rootController: MainViewController?
-
+    var showItemsCount = 0
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         dataSource = self
@@ -40,16 +41,13 @@ class ProgressCollectionView: UICollectionView, UICollectionViewDataSource, UICo
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let progressViewSectionsCount = progressView?.progressViewSections.count ?? 0
-        return progressViewSectionsCount >= getCountCell() ? getCountCell() : progressViewSectionsCount
+        return showItemsCount
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressItemCell.identifier, for: indexPath) as! ProgressItemCell
-
-        if let progress = progressView?.progressViewSections[indexPath.row] {
-            cell.loadCell(progress)
-        }
+        let rowCategory = categories.count == indexPath.row ? nil : categories[indexPath.row]
+        cell.loadCell(rowCategory)
 
         return cell
     }
@@ -63,15 +61,11 @@ class ProgressCollectionView: UICollectionView, UICollectionViewDataSource, UICo
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.fractionalWidth(1.0), heightDimension: NSCollectionLayoutDimension.absolute(40)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),  heightDimension: .absolute(40))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: self.getCountCell())
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: self.showItemsCount)
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             return section
         }
         return layout
-    }
-
-    func getCountCell() -> Int {
-        rootController?.getCountCell() ?? 0
     }
 }

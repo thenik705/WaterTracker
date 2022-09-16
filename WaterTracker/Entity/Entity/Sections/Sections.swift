@@ -16,6 +16,7 @@ enum SectionType {
     case addEvent
     case editEvent
     case settings
+    case welcomeSettings
 }
 
 class Sections {
@@ -37,7 +38,7 @@ class Sections {
     static func createSections(_ sectionType: SectionType = .main) -> [Sections] {
         var sections = [Sections]()
 
-        for section in SectionEntity.getValues(sectionType) {
+        SectionEntity.getValues(sectionType).forEach { (section) in
             sections.append(Sections(section.getId(), section.getTitle(), section.getSubTitle(), emptyTitle: section.emptyTitle, emptySubTitle: section.emptySubTitle))
         }
 

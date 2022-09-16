@@ -22,13 +22,14 @@ class AddCountCell: UITableViewCell {
     weak var delegate: AddTextCellDelegate?
 
     var rowEventEntity: Event?
-
-    func loadCell(_ eventEntity: Event?) {
+    var isWelcome = false
+    
+    func loadCell(_ eventEntity: Event?, _ placeholder: String? = "К примеру: 250 мл") {
         rowEventEntity = eventEntity
 
         updateCount(rowEventEntity?.getStrVolume())
 
-        cellText.placeholder = "К примеру: 250 мл"
+        cellText.placeholder = placeholder
         cellText.delegate = self
 
         cellText.attributedPlaceholder = NSAttributedString(string: cellText.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor :  #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)])
@@ -58,12 +59,44 @@ class AddCountCell: UITableViewCell {
     }
 }
 
+class WelcomeCountCell: AddCountCell {
+
+    static let welcomeIdentifier = "WelcomeCountCell"
+
+    func loadCell() {
+        isWelcome = true
+
+        cellText.placeholder = "К примеру: 50 кг"
+        cellText.delegate = self
+
+        cellText.attributedPlaceholder = NSAttributedString(string: cellText.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor :  #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)])
+
+        backgroundColor = .clear
+    }
+
+    override func updateCount(_ newStrCount: String? = nil) {
+        cellText.text = newStrCount
+
+        var countVolue: Double = 0.0
+
+        if let strCount = newStrCount {
+            if strCount.isNumeric() {
+                if let newCount = strCount.toDouble() {
+                    countVolue = newCount
+                }
+            }
+        }
+
+//        rowEventEntity?.volume = "\(countVolue)"
+    }
+}
+
 extension AddCountCell: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
 
         if let text = textField.text {
-            viewMeasurementWidth.constant = text.isNotEmpty() ? 30 : 0
-            measurementText.alpha = text.isNotEmpty() ? 1 : 0
+            viewMeasurementWidth.constant = text.isNotEmpty() && !isWelcome ? 30 : 0
+            measurementText.alpha = text.isNotEmpty() && !isWelcome ? 1 : 0
         }
 
         delegate?.cellDidChangeSelection(self, textField)

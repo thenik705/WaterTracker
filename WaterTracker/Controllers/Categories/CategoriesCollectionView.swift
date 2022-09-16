@@ -17,13 +17,9 @@ protocol CategoriesCollectionViewControllerDelegate: class {
 class CategoriesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var categories = [Categories]()
-    var addIndexInt = 0
-    var isMainCategories = true {
-        didSet {
-            loadTypes()
-        }
-    }
-    
+    var addIndexInt = Const.MAX_CATEGORIES_COUNT
+    var isMainCategories = true
+
     var columnLayout: WaterColumnFlowLayout?
     var nowSelectCategory: Categories?
 
@@ -81,31 +77,31 @@ class CategoriesCollectionView: UICollectionView, UICollectionViewDataSource, UI
         }
     }
 
-//    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-//        let rowCategory = indexPath.row == addIndexInt ? nil : categories[indexPath.row]
-//
-//        if rowCategory == nil || !isMainCategories {
-//            return nil
-//        }
-//
-//        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-//            let add = UIAction(title: "Добавить напиток", image: UIImage(systemName: "plus"), identifier: nil) { _ in
-//                print("button clicked..")
-//            }
-//
-//            let edit = UIAction(title: "Изменить", image: UIImage(systemName: "square.and.pencil"), identifier: nil) { _ in
-//                self.categoriesDelegate?.selectCategories(rowCategory)
-//            }
-//
-//            let delete = UIAction(title: "Удалить", image: UIImage(systemName: "link"), identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .on, handler: { _ in
-//                print("delete clicked.")
-//            })
-//
-//            return UIMenu(title: "", image: nil, identifier: nil, children: [add, edit, delete])
-//        }
-//
-//        return configuration
-//    }
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let rowCategory = indexPath.row == addIndexInt ? nil : categories[indexPath.row]
+
+        if rowCategory == nil || !isMainCategories {
+            return nil
+        }
+
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let add = UIAction(title: "Добавить напиток", image: UIImage(systemName: "plus"), identifier: nil) { _ in
+                print("button clicked..")
+            }
+
+            let edit = UIAction(title: "Изменить", image: UIImage(systemName: "square.and.pencil"), identifier: nil) { _ in
+                self.categoriesDelegate?.selectCategories(rowCategory)
+            }
+
+            let delete = UIAction(title: "Удалить", image: UIImage(systemName: "link"), identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .on, handler: { _ in
+                print("delete clicked.")
+            })
+
+            return UIMenu(title: "", image: nil, identifier: nil, children: [add, edit, delete])
+        }
+
+        return configuration
+    }
 
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.3) {
@@ -131,7 +127,7 @@ class CategoriesCollectionView: UICollectionView, UICollectionViewDataSource, UI
 
         columnLayout = WaterColumnFlowLayout(
             isMainLayout: isMainCategories,
-            cellsPerRow: 2,
+            cellsPerRow: addIndexInt-1,
             minimumInteritemSpacing: 10,
             minimumLineSpacing: 10,
             sectionInset: UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
@@ -147,15 +143,8 @@ class CategoriesCollectionView: UICollectionView, UICollectionViewDataSource, UI
 
     // MARK: - Additional functions
     func loadTypes() {
-        categories = CoreDataManager.loadFromDb(clazz: Categories.self, keyForSort: Const.SORT_POSITION, loadCount: Const.MAX_CATEGORIES_COUNT)
-        addIndexInt = isMainCategories ? categories.count >= Const.MAX_CATEGORIES_COUNT ? Const.MAX_CATEGORIES_COUNT : categories.count : categories.count
-        UIView.transition(
-            with: self,
-            duration: 0.3,
-            options: [.transitionCrossDissolve, UIView.AnimationOptions.beginFromCurrentState],
-            animations: {
-                self.reloadData()
-        })
+        categories = CoreDataManager.loadFromDb(clazz: Categories.self, keyForSort: Const.SORT_POSITION, loadCount: addIndexInt)
+        reloadData()
     }
 
     func getCountCell() -> Int {

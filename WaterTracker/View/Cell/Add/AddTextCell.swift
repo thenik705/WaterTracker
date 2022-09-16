@@ -30,10 +30,10 @@ class AddTextCell: UITableViewCell {
 
     var rowEntity: ITitle?
 
-    func loadCell(_ entity: ITitle?) {
+    func loadCell(_ entity: ITitle?, _ placeholder: String? = "Название") {
         rowEntity = entity
 
-        cellText.placeholder = "Название"
+        cellText.placeholder = placeholder
         cellText.text = entity?.getTitle()
         cellText.delegate = self
 

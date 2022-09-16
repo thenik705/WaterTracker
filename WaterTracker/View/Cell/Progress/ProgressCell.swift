@@ -18,20 +18,34 @@ class ProgressCell: UITableViewCell {
     @IBOutlet weak var progressDay: UILabel!
     @IBOutlet weak var initLabel: UILabel!
 
-    func loadCell() {
+    var reloadInfo = false
+    var loadCategories = [Categories]()
+    var showItemsCount = 0
+
+    func loadCell(_ reloadInfo: Bool = false, _ showItemsCount: Int = 0) {
+        self.reloadInfo = reloadInfo
+        self.showItemsCount = showItemsCount
+
         let dayVolume = WaterHelpers.instance.allVolume
         let allVolume = WaterHelpers.instance.maxVolumeDay
         let progress = String(format: "%.1f", WaterHelpers.instance.progress)
 
         progressDay.text = "\(dayVolume)/\(allVolume) (\(progress))%"
-        progressView.dataSource = self
 
-        loadInfo()
-        progressCollectionView.progressView = progressView
+        if reloadInfo {
+            progressView.dataSource = self
+            loadInfo()
+            progressCollectionView.categories = loadCategories
+            progressCollectionView.showItemsCount = showItemsCount
+        }
+
         backgroundColor = .clear
     }
 
     func loadInfo() {
+        self.initLabel.alpha = 1
+        self.progressCollectionView?.alpha = 0
+
         UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
             let progress = Float(WaterHelpers.instance.progress/100)
             self.progressView.setProgress(section: 0, progress: progress)
@@ -39,15 +53,19 @@ class ProgressCell: UITableViewCell {
             UIView.animate(withDuration: 0.3, delay: 2.5, options: [], animations: {
                 self.progressView?.resetProgress()
 
-                let allCategoryCountCell = self.progressCollectionView.getCountCell() - 1
+                let allCategoryCountCell = self.getCategories().filter({ $0.getEventsVolume() > 0}).count
                 var allCategoryCountProgress: Float = 0
+
+                self.getCategories().prefix(allCategoryCountCell).forEach { category in
+                    print("id: \(category.getId()) | name: \(category.getTitle()) | volue: \(category.getEventsVolume())")
+                }
 
                 for (index, category) in self.getCategories().enumerated() {
                     self.progressView?.resetProgress(index)
                     let eventsCategories = category.getEvents(WaterHelpers.instance.selectDay)
                     let progress = Float(WaterHelpers.instance.getProgreeEvents(eventsCategories))
 
-                    if allCategoryCountCell != index {
+                    if progress != 0 {
                         allCategoryCountProgress += progress
                         self.progressView.setProgress(section: index, progress: progress/100, isReloadColor: category.getColorId())
                     }
@@ -60,6 +78,7 @@ class ProgressCell: UITableViewCell {
                 }
 
                 self.initLabel.alpha = 0
+                self.progressCollectionView.categories = self.loadCategories
                 self.progressCollectionView?.reloadData()
                 self.progressCollectionView?.alpha = 1
             })
@@ -67,7 +86,12 @@ class ProgressCell: UITableViewCell {
     }
 
     func getCategories() -> [Categories] {
-        return CoreDataManager.loadFromDb(clazz: Categories.self, keyForSort: Const.SORT_POSITION)
+        if reloadInfo {
+            let categoriesBD = CoreDataManager.loadFromDb(clazz: Categories.self, keyForSort: Const.SORT_POSITION)
+            let sortedCategoriesBD = categoriesBD.sorted(by: {$0.getEventsVolume() > $1.getEventsVolume()})
+            loadCategories = Array(sortedCategoriesBD.prefix(showItemsCount-1))
+        }
+        return loadCategories
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -77,7 +101,7 @@ class ProgressCell: UITableViewCell {
 
 extension ProgressCell: MultiProgressViewDataSource {
     public func numberOfSections(in progressBar: MultiProgressView) -> Int {
-        return getCategories().count + 1
+        return showItemsCount
     }
 
     public func progressView(_ progressView: MultiProgressView, viewForSection section: Int) -> ProgressViewSection {

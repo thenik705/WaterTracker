@@ -149,7 +149,7 @@ class WatersCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
     }
 
     func getCountCell() -> Int {
-        return waters.count >= addIndexInt && isMainWaters ? addIndexInt : waters.count
+        return isMainWaters ? waters.count >= addIndexInt ? addIndexInt : waters.count : waters.count
     }
 
     func updateWaters(_ nowWaters: [Water]) {
@@ -157,3 +157,4 @@ class WatersCollectionView: UICollectionView, UICollectionViewDataSource, UIColl
         reloadData()
     }
 }
+

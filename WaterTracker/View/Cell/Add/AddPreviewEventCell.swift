@@ -26,7 +26,7 @@ class AddPreviewEventCell: UITableViewCell {
         if let newImage = image {
             imageEvent = newImage.getImage()
         }
-
+        
         eventBG.topColor = top
         eventBG.bottomColor = down
 

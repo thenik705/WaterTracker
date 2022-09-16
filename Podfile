@@ -5,6 +5,7 @@ def import_pods
 
 pod 'SwiftLint'
 
+pod 'Hero'
 pod 'SPAlert'
 
 end

@@ -52,19 +52,19 @@ class WaterWaveView: UIView {
     override func layoutSubviews() {
     }
     
-    func loadViewInfo(_ number: String, _ day: String, _ isActive: Bool = false) {
-        height = self.frame.size.height
+    func loadViewInfo(_ number: String, _ day: String, _ isActive: Bool = false, _ progress: CGFloat) {
+        self.height = self.frame.size.height
         self.layer.masksToBounds = true
         
         grayDayLabel.textColor = isActive ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        grayDayLabel.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 0.5)
+        grayDayLabel.backgroundColor = isActive ? #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 0.5) : #colorLiteral(red: 0.5608925223, green: 0.5605969429, blue: 0.5822194815, alpha: 1)
         grayDayLabel.textAlignment = .center
         grayDayLabel.numberOfLines = 0
         grayDayLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
         grayDayLabel.attributedText = attributedLabel(grayDayLabel, number, day)
         self.addSubview(grayDayLabel)
         
-        topDayLabel.textColor = isActive ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) :  #colorLiteral(red: 0.2962678109, green: 0.2962678109, blue: 0.2962678109, alpha: 1)
+        topDayLabel.textColor = isActive ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         topDayLabel.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         topDayLabel.textAlignment = .center
         topDayLabel.numberOfLines = 0
@@ -74,8 +74,8 @@ class WaterWaveView: UIView {
         layerStartDay.frame = topDayLabel.frame
         self.addSubview(topDayLabel)
         
-        bottomDayLabel.textColor = isActive ? #colorLiteral(red: 0.9434816241, green: 0.9393909574, blue: 0.9685646892, alpha: 1) : #colorLiteral(red: 0.2962678109, green: 0.2962678109, blue: 0.2962678109, alpha: 1)
-        bottomDayLabel.backgroundColor = isActive ? #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        bottomDayLabel.textColor = isActive ? #colorLiteral(red: 0.9434816241, green: 0.9393909574, blue: 0.9685646892, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        bottomDayLabel.backgroundColor = isActive ? #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1) : progress == 0 ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 0.8975696564, green: 0.9223318696, blue: 0.9304484725, alpha: 1)
         bottomDayLabel.textAlignment = .center
         bottomDayLabel.numberOfLines = 0
         bottomDayLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width)
@@ -87,6 +87,7 @@ class WaterWaveView: UIView {
         wave()
         
         waveHeight = isActive ? 2 : 0
+        self.progress = progress
     }
     
     var link: CADisplayLink?

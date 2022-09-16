@@ -28,6 +28,12 @@ class SettingsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonClose)
 
         title = "Настройки"
+
+        settingsTableView.setController(self)
+        let controller = Const.GET_STORYBOARD.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+
+        let nController = UINavigationController(rootViewController: controller)
+        self.present(nController, animated: true, completion: nil)
     }
 
     // MARK: - Actions

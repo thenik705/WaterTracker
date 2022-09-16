@@ -35,7 +35,7 @@ public class Categories: DBEntity, ITitle {
         return id ?? -1
     }
     
-    public func getEvents(_ day: Date) -> [Event] {
+    public func getEvents(_ day: Date = Date()) -> [Event] {
         var events = [Event]()
         let allEventsDay = CoreDataManager.loadEventsToDate(day)
         
@@ -55,6 +55,15 @@ public class Categories: DBEntity, ITitle {
         return ""
     }
     
+    public func getEventsVolume() -> Double {
+        var allProgress: Double = 0
+        getEvents().forEach { event in
+            allProgress += event.getVolume()
+        }
+        
+        return allProgress
+    }
+
     static public func saveToBase(_ categories: Categories, _ waters: [Water]) -> Categories {
         let newCategories = Categories()
         newCategories.colorId = categories.colorId

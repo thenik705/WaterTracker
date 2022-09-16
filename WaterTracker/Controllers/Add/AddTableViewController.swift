@@ -48,6 +48,8 @@ class AddTableViewController: UITableView, UITableViewDataSource, UITableViewDel
         cell.isShowAllButton(rowSection.getType().getIsShowAll())
         cell.background.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
+        cell.title.heroID = "sectionTitle\(section-1)"
+        cell.subTitle.heroID = "sectionSubTitle\(section-1)"
         return cell
     }
 
@@ -117,15 +119,16 @@ class AddTableViewController: UITableView, UITableViewDataSource, UITableViewDel
 
     func loadInfo(_ sectionType: SectionType = .addWater) {
         nowSectionType = sectionType
-        sections = Sections.createSections(nowSectionType)
 
-        UIView.transition(
-            with: self,
-            duration: 0.3,
-            options: [.transitionCrossDissolve, UIView.AnimationOptions.beginFromCurrentState],
-            animations: {
-                self.reloadData()
-        })
+        sections = Sections.createSections(self.nowSectionType)
+
+//        UIView.transition(
+//            with: self,
+//            duration: 0.3,
+//            options: [.transitionCrossDissolve, UIView.AnimationOptions.beginFromCurrentState],
+//            animations: {
+//                self.reloadData()
+//        })
     }
 
     func loadPreviewCell(_ indexPath: IndexPath) -> UITableViewCell {
@@ -228,13 +231,15 @@ class AddTableViewController: UITableView, UITableViewDataSource, UITableViewDel
             }
         }
 
-        if let headerCountSection = headerView(forSection: indexCount) as? TableSectionHeader {
-            headerCountSection.setSubTextSection(newTitle, getCategories())
-        }
+        if nowSectionType != .welcomeSettings {
+            if let headerCountSection = headerView(forSection: indexCount) as? TableSectionHeader {
+                headerCountSection.setSubTextSection(newTitle, getCategories())
+            }
 
-        if let headerIconsSection = headerView(forSection: indexIcons) as? TableSectionHeader {
-             headerIconsSection.setSubTextSection(newTitle, getCategories())
-         }
+            if let headerIconsSection = headerView(forSection: indexIcons) as? TableSectionHeader {
+                headerIconsSection.setSubTextSection(newTitle, getCategories())
+            }
+        }
     }
 
     func updateColor(_ newColor: WaterColor) {

@@ -21,6 +21,14 @@ class HistoryCell: UITableViewCell {
     @IBOutlet weak var eventCategoriesTitle: UILabel!
     @IBOutlet weak var eventProgress: UILabel!
 
+    @IBOutlet weak var eventViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventView: UIView!
+    @IBOutlet weak var eventViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var eventItemCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var separatorViewBottomConstraint: NSLayoutConstraint!
+
     var rowEvent: Event!
 
     func loadCell(_ event: Event) {
@@ -42,9 +50,9 @@ class HistoryCell: UITableViewCell {
         eventTitle.text = rowEvent.getTitle()
         eventSubTitle.text = rowEvent.getStrVolume()
 
-        eventCategoriesTitle.text = rowEvent?.getCategories()?.getTitle()
-        eventProgress.text = "\(percent) %"
-        eventProgress.textColor = percent > 0 ? .green : .red
+//        eventCategoriesTitle.text = rowEvent?.getCategories()?.getTitle()
+//        eventProgress.text = "\(percent) %"
+//        eventProgress.textColor = percent > 0 ? .green : .red
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -15,7 +15,7 @@ class DayItemCell: UICollectionViewCell {
     @IBOutlet weak var progressView: WaterWaveView!
 
     func loadCell(_ day: Day, _ isActive: Bool = false) {
-        progressView.loadViewInfo("\(day.dayNumber)", day.getTitle(), isActive)
+        progressView.loadViewInfo("\(day.dayNumber)", day.getTitle(), isActive, day.progress)
 
         backgroundColor = .clear
     }

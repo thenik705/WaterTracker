@@ -225,9 +225,15 @@
 		24749D0C235D8A2E00DEE3B0 /* MultiProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24749D07235D8A2E00DEE3B0 /* MultiProgressView.swift */; };
 		24749D0F235D909700DEE3B0 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24749D0E235D909700DEE3B0 /* ProgressCell.swift */; };
 		2476823023D090CD00F127A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476822F23D090CD00F127A3 /* ViewController.swift */; };
+		2489476F2457570A00EC6636 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489476E2457570A00EC6636 /* WelcomeViewController.swift */; };
+		248947712457572900EC6636 /* WelcomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248947702457572900EC6636 /* WelcomeTableViewController.swift */; };
+		24894775245758EA00EC6636 /* WelcomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24894774245758EA00EC6636 /* WelcomeCell.swift */; };
+		24894778245784D900EC6636 /* WelcomeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24894777245784D900EC6636 /* WelcomeSettingsViewController.swift */; };
 		2489A8602371C07600BE6EE6 /* AddIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489A85F2371C07600BE6EE6 /* AddIconCell.swift */; };
 		2489A8622371C08F00BE6EE6 /* IconItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489A8612371C08F00BE6EE6 /* IconItemCell.swift */; };
 		2489A8642371C12000BE6EE6 /* AddIconsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489A8632371C12000BE6EE6 /* AddIconsCollectionView.swift */; };
+		24929A2C245899EB00E94F32 /* WelcomeSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24929A2B245899EB00E94F32 /* WelcomeSettingsTableViewController.swift */; };
+		24929A2E2458D09D00E94F32 /* WaterParkBenchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24929A2D2458D09D00E94F32 /* WaterParkBenchTimer.swift */; };
 		24C628E9236C835400AE44E9 /* AddEntityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C628E8236C835400AE44E9 /* AddEntityCell.swift */; };
 		24C78AB02374900800E9265E /* AddCategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C78AAF2374900800E9265E /* AddCategoriesCollectionView.swift */; };
 		24FD2E082363135100B25F4C /* GenerateCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FD2E072363135100B25F4C /* GenerateCategories.swift */; };
@@ -495,9 +501,15 @@
 		24749D07235D8A2E00DEE3B0 /* MultiProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiProgressView.swift; sourceTree = "<group>"; };
 		24749D0E235D909700DEE3B0 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		2476822F23D090CD00F127A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2489476E2457570A00EC6636 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		248947702457572900EC6636 /* WelcomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTableViewController.swift; sourceTree = "<group>"; };
+		24894774245758EA00EC6636 /* WelcomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCell.swift; sourceTree = "<group>"; };
+		24894777245784D900EC6636 /* WelcomeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSettingsViewController.swift; sourceTree = "<group>"; };
 		2489A85F2371C07600BE6EE6 /* AddIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIconCell.swift; sourceTree = "<group>"; };
 		2489A8612371C08F00BE6EE6 /* IconItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconItemCell.swift; sourceTree = "<group>"; };
 		2489A8632371C12000BE6EE6 /* AddIconsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIconsCollectionView.swift; sourceTree = "<group>"; };
+		24929A2B245899EB00E94F32 /* WelcomeSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSettingsTableViewController.swift; sourceTree = "<group>"; };
+		24929A2D2458D09D00E94F32 /* WaterParkBenchTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterParkBenchTimer.swift; sourceTree = "<group>"; };
 		24C628E8236C835400AE44E9 /* AddEntityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntityCell.swift; sourceTree = "<group>"; };
 		24C78AAF2374900800E9265E /* AddCategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesCollectionView.swift; sourceTree = "<group>"; };
 		24FD2E072363135100B25F4C /* GenerateCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCategories.swift; sourceTree = "<group>"; };
@@ -1280,6 +1292,7 @@
 				244352EC236DCFCA00B18CBB /* Add */,
 				2447969723C031A400854F4F /* Settings */,
 				2476822F23D090CD00F127A3 /* ViewController.swift */,
+				2489476C2457561000EC6636 /* Onboarding */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1352,6 +1365,7 @@
 				24602021238D8FF5000B9235 /* Substrate */,
 				243A8B9423C8DE980088774C /* Action */,
 				24413C2E23C14F5C00F32E07 /* Settings */,
+				24894772245758D200EC6636 /* Onboarding */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1523,6 +1537,7 @@
 			isa = PBXGroup;
 			children = (
 				245DA9DD235A6CEB00793309 /* WaterWaveView.swift */,
+				24929A2D2458D09D00E94F32 /* WaterParkBenchTimer.swift */,
 			);
 			path = WaterFrameworks;
 			sourceTree = "<group>";
@@ -1546,6 +1561,41 @@
 				243FAF6223624830005C8C41 /* ProgressItemCell.swift */,
 			);
 			path = Progress;
+			sourceTree = "<group>";
+		};
+		2489476C2457561000EC6636 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2489476D2457562700EC6636 /* Welcome */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		2489476D2457562700EC6636 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				2489476E2457570A00EC6636 /* WelcomeViewController.swift */,
+				248947702457572900EC6636 /* WelcomeTableViewController.swift */,
+				24894777245784D900EC6636 /* WelcomeSettingsViewController.swift */,
+				24929A2B245899EB00E94F32 /* WelcomeSettingsTableViewController.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		24894772245758D200EC6636 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				24894773245758DC00EC6636 /* Welcome */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		24894773245758DC00EC6636 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				24894774245758EA00EC6636 /* WelcomeCell.swift */,
+			);
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		301506BCEFBB63A2FD41540D /* Frameworks */ = {
@@ -1800,6 +1850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				241B579B236F971600ADBDD0 /* SPCodeSystemIconPack.swift in Sources */,
+				248947712457572900EC6636 /* WelcomeTableViewController.swift in Sources */,
 				2457506C2365BAF700578F34 /* CategoryMainItemCell.swift in Sources */,
 				2460201E238D75B8000B9235 /* WatersCell.swift in Sources */,
 				241B5753236F971600ADBDD0 /* SPAudioIconView.swift in Sources */,
@@ -1840,6 +1891,7 @@
 				24413C2D23C1420A00F32E07 /* SettingsTableViewController.swift in Sources */,
 				241B5766236F971600ADBDD0 /* SPUIAlertControllerExtenshion.swift in Sources */,
 				241B5743236F971600ADBDD0 /* SPImageView.swift in Sources */,
+				24894775245758EA00EC6636 /* WelcomeCell.swift in Sources */,
 				244873712354AC1B008EAB7A /* CalendarCollectionViewController.swift in Sources */,
 				241B5790236F971600ADBDD0 /* SPDownloader.swift in Sources */,
 				241B57AC236F971600ADBDD0 /* SPStorkCloseButton.swift in Sources */,
@@ -1916,6 +1968,7 @@
 				241B5791236F971600ADBDD0 /* SPBufer.swift in Sources */,
 				241B5778236F971600ADBDD0 /* SPCGRectExtension.swift in Sources */,
 				241B5759236F971600ADBDD0 /* SPTableController.swift in Sources */,
+				24929A2E2458D09D00E94F32 /* WaterParkBenchTimer.swift in Sources */,
 				241B575B236F971600ADBDD0 /* SPController.swift in Sources */,
 				241B57A1236F971600ADBDD0 /* SPShare.swift in Sources */,
 				241B5786236F971600ADBDD0 /* SPAppStore.swift in Sources */,
@@ -1940,6 +1993,7 @@
 				241B57A7236F971600ADBDD0 /* SPStorkTransitioningDelegate.swift in Sources */,
 				241B577F236F971600ADBDD0 /* SPAppOpener.swift in Sources */,
 				24749D08235D8A2E00DEE3B0 /* LayoutProvider.swift in Sources */,
+				2489476F2457570A00EC6636 /* WelcomeViewController.swift in Sources */,
 				241B575C236F971600ADBDD0 /* SPCollectionViewCell.swift in Sources */,
 				244873622354946F008EAB7A /* TableSectionHeader.swift in Sources */,
 				243FA60F236786C2008DBA9B /* Localize.swift in Sources */,
@@ -1947,6 +2001,7 @@
 				241B574E236F971600ADBDD0 /* SPBlurView.swift in Sources */,
 				241B5799236F971600ADBDD0 /* SPCodeAudioIconPack.swift in Sources */,
 				2448735B235480EC008EAB7A /* MainTableViewController.swift in Sources */,
+				24894778245784D900EC6636 /* WelcomeSettingsViewController.swift in Sources */,
 				241B575F236F971600ADBDD0 /* SPCollectionViewLayout.swift in Sources */,
 				241B573E236F971600ADBDD0 /* SPDownloadingButton.swift in Sources */,
 				241B57B0236F971600ADBDD0 /* SPStorkControllerDelegate.swift in Sources */,
@@ -1994,6 +2049,7 @@
 				241B575A236F971600ADBDD0 /* SPStatusBarManagerController.swift in Sources */,
 				241B576A236F971600ADBDD0 /* SPUIFontExtenshion.swift in Sources */,
 				245DA9DE235A6CEB00793309 /* WaterWaveView.swift in Sources */,
+				24929A2C245899EB00E94F32 /* WelcomeSettingsTableViewController.swift in Sources */,
 				2489A8642371C12000BE6EE6 /* AddIconsCollectionView.swift in Sources */,
 				241B57AB236F971600ADBDD0 /* SPStorkViewControllerExtenshion.swift in Sources */,
 				241B5739236F971600ADBDD0 /* SPSocialButton.swift in Sources */,

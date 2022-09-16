@@ -14,7 +14,7 @@ protocol SettingTableDelegate: class {
 class SettingsTableViewController: UITableView, UITableViewDataSource, UITableViewDelegate {
 
     var sections = Sections.createSections(.settings)
-    var rootController: AddViewController!
+    var rootController: SettingsViewController!
 
     weak var settingsTableDelegate: SettingTableDelegate?
 
@@ -53,6 +53,10 @@ class SettingsTableViewController: UITableView, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = Const.GET_STORYBOARD.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+
+        let nController = UINavigationController(rootViewController: controller)
+        rootController.present(nController, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -69,7 +73,7 @@ class SettingsTableViewController: UITableView, UITableViewDataSource, UITableVi
     }
 
     // MARK: - Additional functions
-    func setController(_ controller: AddViewController) {
+    func setController(_ controller: SettingsViewController) {
         self.rootController = controller
     }
 }

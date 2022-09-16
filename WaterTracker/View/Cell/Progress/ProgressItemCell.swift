@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreDataKit
 
 class ProgressItemCell: UICollectionViewCell {
 
@@ -15,10 +16,14 @@ class ProgressItemCell: UICollectionViewCell {
     @IBOutlet weak var progressViewIndicator: GradientView!
     @IBOutlet weak var progressTitle: UILabel!
 
-    func loadCell(_ item: ProgressViewSection) {
-
-        progressViewIndicator = item.sectionGradientView
-        progressTitle.text = item.titleLabel.text
+    func loadCell(_ item: Categories?) {
+        var (top, down) = (#colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))
+        if let color = item?.getColorId() {
+            (top, down) = WaterColor.getById(color).getColor()
+        }
+        progressViewIndicator.topColor = top
+        progressViewIndicator.bottomColor = down
+        progressTitle.text = item?.getTitle() ?? "Другое"
 
         backgroundColor = .clear
     }

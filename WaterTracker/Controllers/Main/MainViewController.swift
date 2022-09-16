@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
         didSet {
             if progressView != nil {
                 progressCollectionView.rootController = self
-                progressCollectionView.progressView = progressView
                 progressCollectionView.reloadData()
             }
         }
@@ -59,7 +58,6 @@ class MainViewController: UIViewController {
     }
 
     // MARK: - Objc functions
-
     @objc func updateInfo() {
         mainTableView?.loadEvents()
     }
@@ -86,18 +84,24 @@ class MainViewController: UIViewController {
     }
 
     func getCountCell() -> Int {
-        var countWidthCell: Double = 0.0
+        var countWidthCell: Double = 72.3
         let width = Double(UIScreen.main.bounds.width-60.0)
-        var countCell = 0
-        let categories = getCategories()
+        var countCell = 1
+        let categories = getCategories().sorted(by: {$0.getEventsVolume() > $1.getEventsVolume()})
+        let labelFont = UIFont.systemFont(ofSize: 12)
+
+//        let wCustomItem = "Другое".size(with: labelFont).width
+//        countWidthCell += Double(wCustomItem)+(wCustomItem >= 1 ? 30.0 : 0.0)
+//        countCell += 1
 
         for category in categories {
-            let labelFont = UIFont.systemFont(ofSize: 10)
             let wItem = category.getTitle().size(with: labelFont).width
+            countWidthCell += Double(wItem)+(wItem >= 1 ? 30.0 : 0.0)
 
             if countWidthCell < width {
-                countWidthCell += Double(wItem)+(wItem >= 1 ? 30.0 : 0.0)
                 countCell += 1
+            } else {
+                break
             }
         }
 
@@ -121,7 +125,9 @@ class MainViewController: UIViewController {
 
         controller.rootController = self
         controller.addDelegate = self
+
         let nController = UINavigationController(rootViewController: controller)
+        nController.modalPresentationStyle = .fullScreen
         self.present(nController, animated: true, completion: nil)
     }
 }
@@ -167,8 +173,6 @@ extension MainViewController: SPStorkControllerDelegate {
 
 extension MainViewController: AddViewControllerDelegate {
     func saveCategories(_ categories: Categories?, _ newCategories: Bool) {
-        let countCategories = CoreDataManager.loadCount(clazz: Categories.self)
-
         if let indexSectionCategories = mainTableView.sections.firstIndex(where: { $0.getId() == SectionEntity.Categories.getId() }) {
             if let cell = mainTableView.cellForRow(at: IndexPath(row: 0, section: indexSectionCategories)) as? CategoriesCell {
                 if let _ = categories {
@@ -187,10 +191,6 @@ extension MainViewController: AddViewControllerDelegate {
                     let countCategories = CoreDataManager.loadCount(clazz: Categories.self)
                     headerIconsSection.isShowAllButton(countCategories > Const.MAX_CATEGORIES_COUNT)
                 }
-            }
-
-            if countCategories <= 2 {
-                mainTableView.reloadSections(IndexSet(arrayLiteral: indexSectionCategories), with: .automatic)
             }
         }
     }
@@ -254,6 +254,7 @@ extension MainViewController: WaterCollectionViewControllerDelegate {
     }
 
     func selectWater(_ water: Water?, edit: Bool) {
+//        tapOpenSettings()
         openEditController(edit ? .editWater : (water == nil ? .addWater : .addEvent), water, nil)
     }
 }

@@ -9,7 +9,6 @@
 import UIKit
 
 class SectionEntity {
-
 //    static public let Substrate = SectionEntity(id: -1, title: "Substrate", isHidden: true)
     static public let Header = SectionEntity(0, title: "Header", isHidden: true)
     static public let Calendar = SectionEntity(1, title: "Calendar", isHidden: true)
@@ -35,7 +34,7 @@ class SectionEntity {
     }
 
     static public func mainValues() -> [SectionEntity] {
-        return [Header, Calendar, Progress, Categories, Waters, History]
+        return [Header, Calendar, Progress, Categories, Waters, History, Actions]
     }
 
     static public func addValues() -> [SectionEntity] {
@@ -88,7 +87,8 @@ class SectionEntity {
     static public func values(_ sectionType: SectionType = .main) -> [SectionEntity] {
         var volues = addValues()
 
-        if sectionType == .main {
+        switch sectionType {
+        case .main:
             volues = mainValues()
 
             let progress = volues.first(where: { $0.itemId == Progress.getId() })
@@ -97,12 +97,12 @@ class SectionEntity {
             let history = volues.first(where: { $0.itemId == History.getId() })
             history?.emptyTitle = "Пусто"
             history?.emptySubTitle = "Нет последних напитков"
-        } else if sectionType == .addWater {
+        case .addWater:
             if let indexCount = volues.firstIndex(where: { $0.itemId == Title.itemId }) {
                 volues.insert(Count, at: indexCount+1)
                 volues.insert(Categories, at: volues.count)
             }
-        } else if sectionType == .addWater || sectionType == .editWater {
+        case .addWater, .editWater:
             if let indexCount = volues.firstIndex(where: { $0.itemId == Title.itemId }) {
                 if sectionType == .addWater {
                     volues.insert(Count, at: indexCount+1)
@@ -110,12 +110,24 @@ class SectionEntity {
 
                 volues.insert(Categories, at: volues.count)
             }
-        } else if sectionType == .category {
-            volues.insert(Waters, at: volues.count)
-        } else if sectionType == .addEvent {
+        case .category:
+             volues.insert(Waters, at: volues.count)
+        case .addEvent:
             return addEventValues()
-        } else if sectionType == .settings {
+        case .settings:
             return settingsValues()
+        case .welcomeSettings:
+            volues = addEventValues()
+
+            let title = volues.first(where: { $0.itemId == Title.getId() })
+            title?.title = "Ваше имя"
+
+            let count = volues.first(where: { $0.itemId == Count.getId() })
+            count?.title = "Ваш вес"
+            count?.subTitle = "Введите сколько Вы весите"
+
+        default:
+            print("NO SectionType!")
         }
 
         return volues

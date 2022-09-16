@@ -9,7 +9,7 @@
 import UIKit
 import DateUtilsKit
 
-protocol CalendarDelegate: class {
+protocol CalendarDelegate: AnyObject {
     func selectDay(_ calendar: CalendarCollectionViewController, _ day: Day)
 }
 
@@ -52,7 +52,6 @@ class CalendarCollectionViewController: UICollectionView, UICollectionViewDataSo
         let rowDay = days[indexPath.row]
 
         cell.loadCell(rowDay, rowDay.getId() == rootController.selectedDay.getId())
-        cell.progressView.progress = CGFloat(rowDay.progress)
 
         return cell
     }

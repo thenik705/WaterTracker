@@ -21,6 +21,7 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
     var rootController: MainViewController!
     var calendarCollectionView: CalendarCollectionViewController!
     var events = [Event]()
+    var reloadInfo = false
 
     weak var mainTableDelegate: MainTableDelegate?
 
@@ -111,6 +112,11 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
         return rowSection.getIsHidden() ? 1 : rowSection.getSubTitle().isNotEmpty() ? 60 : 35//sections[section].items.count != 0 ? 35 : 0
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let rowSection = sections[section].getType()
+        return rowSection.getIsHidden() ? 1 : 15
+    }
+
     // MARK: - Settings
     func initSettings() {
         dataSource = self
@@ -118,6 +124,7 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
 
         estimatedRowHeight = 200
         sectionFooterHeight = 0
+        tableFooterView = UIView(frame: .zero)
 
         let nib = UINib(nibName: TableSectionHeader.identifier, bundle: nil)
         register(nib, forHeaderFooterViewReuseIdentifier: TableSectionHeader.identifier)
@@ -130,6 +137,7 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
 
     func loadEvents() {
         events = rootController?.getEvents() ?? [Event]()
+        reloadInfo = true
         updateMainSection()
     }
 
@@ -180,6 +188,8 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
 //        } else {
 //            reloadData()
 //        }
+        
+//        reloadInfo = false
     }
 
     func loadHeaderCell(_ indexPath: IndexPath) -> UITableViewCell {
@@ -194,7 +204,7 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
 
         calendar.setController(rootController)
         calendar.calendarDelegate = rootController
-
+        cell.contentView.layoutIfNeeded()
         return cell
     }
 
@@ -211,8 +221,8 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
         }
 
         let cell = dequeueReusableCell(withIdentifier: ProgressCell.identifier, for: indexPath) as! ProgressCell
-        cell.loadCell()
-
+        cell.loadCell(reloadInfo, rootController.getCountCell())
+        reloadInfo = false
         rootController.progressView = cell.progressView
         rootController.progressCollectionView = cell.progressCollectionView
 
@@ -242,6 +252,34 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
         let rowEvent = events[indexPath.row]
 
         cell.loadCell(rowEvent)
+
+//        cell.eventViewTopConstraint.constant = 0
+//        cell.eventViewHeightConstraint.constant = 50
+//        cell.eventItemCenterConstraint.constant = 0
+//        cell.eventViewBottomConstraint.constant = 0
+//        cell.eventView.layer.cornerRadius = 0
+        cell.separatorView.alpha = 1
+        cell.separatorViewBottomConstraint.constant = -0.5
+
+        if indexPath.row == 0 {
+//            cell.eventView.layer.cornerRadius = 10
+
+//            if events.count > 1 {
+//                cell.eventViewHeightConstraint.constant = 60
+//                cell.eventViewBottomConstraint.constant = -10
+//                cell.eventItemCenterConstraint.constant = -5
+//                cell.separatorViewBottomConstraint.constant = 9.5
+//            }
+
+            cell.separatorView.alpha = events.count > 1 ? 1 : 0
+        } else if indexPath.row == events.count-1 {
+//            cell.eventView.layer.cornerRadius = 10
+//            cell.eventViewHeightConstraint.constant = 60
+//            cell.eventViewTopConstraint.constant = -10
+//            cell.eventItemCenterConstraint.constant = 5
+            cell.separatorView.alpha = 0
+        }
+
         return cell
     }
 
@@ -249,7 +287,7 @@ class MainTableViewController: UITableView, UITableViewDataSource, UITableViewDe
         let cell = dequeueReusableCell(withIdentifier: ActionCell.identifier, for: indexPath) as! ActionCell
 
         cell.textLabel?.text = indexPath.row == 0 ? "Премиум-доступ" : "Настройки"
-
+        cell.backgroundColor = nil
         return cell
     }
 
